@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GIFResponse } from "../interfaces/gif.response";
+// import type { GIFResponse } from "../interfaces/gif.response";
 
 // https://api.giphy.com/v1/gifs/random?api_key=${apiKey}
 
