@@ -12,7 +12,7 @@ import MyCounter2Script from './components/my-counter-script/MyCounter2Script.vu
     Mi primera app
   </h1>
         <MyCounter :value="1" />
-        <MyCounterScript :value="2" />
+        <MyCounterScript :value="8" />
         <MyCounter2Script :value="3" />
     </div>
 </template>
