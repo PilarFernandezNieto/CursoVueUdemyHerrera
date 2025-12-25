@@ -1,5 +1,12 @@
-<script setup>
+<script lang="ts" setup>
+import type { ChatMessage } from '@/interfaces/chat-message.inteface';
 import ChatBubble from './ChatBubble.vue';
+
+interface Props {
+    messages: ChatMessage[];
+}
+
+defineProps<Props>();
 
 
 </script>
@@ -8,8 +15,10 @@ import ChatBubble from './ChatBubble.vue';
     <div class="flex-1 overflow-y-auto p-4">
         <div class="flex flex-col space-y-2">
             <!-- Messages go here -->
-            <ChatBubble :its-mine="true" :message="'Hola mundo'" />
-            <ChatBubble :its-mine="false" :message="'Hola mundo'" />
+            <!-- <ChatBubble v-for="message in messages" :key="message.id" :its-mine="message.itsMine"
+                :message="message.message" :image="message.image" /> -->
+            <ChatBubble v-for="message in messages" :key="message.id" v-bind="message" />
+
         </div>
     </div>
 </template>
