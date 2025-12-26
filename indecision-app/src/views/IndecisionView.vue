@@ -1,37 +1,9 @@
 <script lang="ts" setup>
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import MessageBox from '@/components/chat/MessageBox.vue';
-import type { ChatMessage } from '@/interfaces/chat-message.inteface';
-import { ref } from 'vue';
+import { useChat } from '@/composables/useChat';
 
-const messages = ref<ChatMessage[]>([
-    {
-        id: new Date().getTime(),
-        message: '¡¡Hola mundo!!',
-        itsMine: true,
-    },
-    {
-        id: new Date().getTime(),
-        message: '¿Te apetece un café?',
-        itsMine: true,
-    },
-    {
-        id: new Date().getTime(),
-        message: '¡¡¡Si!!!',
-        itsMine: false,
-        image: 'https://yesno.wtf/assets/yes/13-c3082a998e7758be8e582276f35d1336.gif'
-    },
-]);
-
-// Manejador de la función que recibe el evento emitido por el hijo (MessageBox-sendMessage)
-const onMessage = (text: string) => {
-    messages.value.push({
-        id: new Date().getTime(),
-        itsMine: true,
-        message: text
-    });
-}
-
+const { messages, onMessage } = useChat();
 
 </script>
 
