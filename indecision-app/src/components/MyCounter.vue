@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { useCounter } from '@/composables/useCounter';
-
-const { counter, square } = useCounter(10);
-
 interface Props {
     value: number;
-
 }
 
 const props = defineProps<Props>();
+
+const { counter, square } = useCounter(props.value);
+
+
 
 
 </script>
@@ -16,11 +16,11 @@ const props = defineProps<Props>();
 <template>
     <section>
         <h3>Counter: {{ counter }}</h3>
-        <h3>Square: {{ square }}</h3>
+        <h3 data-testid="square-label">Square: {{ square }}</h3>
 
         <div>
             <button class="btn" @click="counter++">+1</button>
-            <button @click="counter--">-1</button>
+            <button class="btn" @click="counter--">-1</button>
         </div>
     </section>
 </template>
