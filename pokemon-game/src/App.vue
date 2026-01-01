@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <h1 class="p-5 text-3xl capitalize text-indigo-400">Hola mundo</h1>
-  </div>
+  <PokemonGame />
 </template>
 
-<script lang="ts"></script>
-
-<style scoped></style>
+<script lang="ts" setup>
+import PokemonGame from '@/modules/pokemon/pages/PokemonGame.vue'
+</script>
