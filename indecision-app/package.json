@@ -13,6 +13,7 @@
     "build-only": "vite build",
     "test:unit": "vitest",
     "test": "vitest --watch=false",
+    "coverage": "vitest run --coverage",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/"
@@ -26,6 +27,7 @@
     "@tsconfig/node24": "^24.0.3",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",
+    "@vitest/coverage-v8": "^4.0.16",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/test-utils": "^2.4.6",
