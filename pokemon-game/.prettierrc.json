@@ -2,6 +2,8 @@
   "$schema": "https://json.schemastore.org/prettierrc",
   "semi": true,
   "singleQuote": true,
-  "printWidth": 100,
-  "trailingComma": "all"
+  "printWidth": 80,
+  "trailingComma": "all",
+  "singleAttributePerLine": true,
+  "htmlWhitespaceSensitivity": "ignore"
 }

@@ -15,7 +15,8 @@
     "allowJs": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@pokemon/*": ["./src/modules/pokemon/*"]
     }
   }
 }
