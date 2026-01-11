@@ -28,7 +28,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-console.log(props.correctAnswer);
 
 defineEmits<{
   selectedOption: [id: number];
