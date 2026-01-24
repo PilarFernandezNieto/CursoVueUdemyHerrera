@@ -46,7 +46,6 @@ export const usePokemonGame = () => {
 
   const checkAnswer = (id: number) => {
     const hasWon = randomPokemon.value?.id === id;
-    console.log('id', id);
     if (hasWon) {
       gameStatus.value = GameStatus.Won;
       confetti({
@@ -57,7 +56,7 @@ export const usePokemonGame = () => {
       return;
     }
     gameStatus.value = GameStatus.Lost;
-    console.log(gameStatus.value);
+
   };
 
   onMounted(async () => {
