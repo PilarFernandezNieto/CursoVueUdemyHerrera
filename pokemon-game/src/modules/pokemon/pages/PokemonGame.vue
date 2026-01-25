@@ -1,9 +1,9 @@
 <template>
   <section
-    v-if="isLoading"
+    v-if="isLoading || randomPokemon?.id === null"
     class="flex flex-col justify-center items-center w-screen h-screen"
   >
-    <h1 class="text-3xl">Espere por favor</h1>
+    <h1 class="text-3xl">Espere, por favor...</h1>
     <h3 class="animate-pulse">Cargando Pokemons</h3>
   </section>
   <section
@@ -15,7 +15,8 @@
       <button
         v-if="gameStatus !== GameStatus.Playing"
         class="bg-green-500 p-3 rounded-md m-4 text-white uppercase font-bold"
-        @click="getNextRound()"
+        @click="getNextRound(5)"
+        data-test-id="btn-new-game"
       >
         Volver a jugar
       </button>
@@ -55,7 +56,5 @@ const {
   getNextRound,
 } = usePokemonGame();
 
-const onSelectedOption = (value: number) => {
-  console.log({ value });
-};
+
 </script>
