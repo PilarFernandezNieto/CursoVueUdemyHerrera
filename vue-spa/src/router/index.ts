@@ -1,9 +1,11 @@
+import NotFound404 from '@/modules/common/pages/NotFound404.vue';
 import HomeView from '@/modules/landing/views/HomeView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // Landign
     {
       path: '/',
       name: 'landing',
@@ -28,7 +30,6 @@ const router = createRouter({
           path: '/contact',
           name: 'contact',
           component: () => import('@/modules/landing/views/ContactView.vue'),
-          path: '/features',
         },
       ],
     },
@@ -49,6 +50,13 @@ const router = createRouter({
           component: () => import('@/modules/auth/views/RegisterView.vue'),
         },
       ],
+    },
+
+    // Not found
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: NotFound404,
     },
   ],
 });
