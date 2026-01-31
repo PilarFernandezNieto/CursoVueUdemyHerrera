@@ -1,3 +1,4 @@
+import isAuthenticatedGuard from '@/modules/auth/guards/is-authenticated.guard';
 import NotFound404 from '@/modules/common/pages/NotFound404.vue';
 import HomeView from '@/modules/landing/views/HomeView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -30,6 +31,24 @@ const router = createRouter({
           path: '/contact',
           name: 'contact',
           component: () => import('@/modules/landing/views/ContactView.vue'),
+        },
+        {
+          path: '/pokemon/:id',
+          name: 'pokemon',
+          beforeEnter: [
+            isAuthenticatedGuard,
+            // (to, from, next) => {
+            //   console.log('temporal');
+            //   console.log({ to, from, next });
+            //   return next();
+            // },
+          ],
+          props: (route) => {
+            const id = Number(route.params.id);
+            return isNaN(id) ? { id: 1 } : { id };
+          },
+
+          component: () => import('@/modules/landing/pokemons/pages/PokemonPage.vue'),
         },
       ],
     },

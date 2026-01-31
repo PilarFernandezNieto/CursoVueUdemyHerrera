@@ -34,7 +34,8 @@
     </div>
     <!-- Login Button -->
     <button
-      type="submit"
+      type="button"
+      @click="login"
       class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
     >
       Login
@@ -45,5 +46,16 @@
     <RouterLink :to="{ name: 'register' }" class="hover:underline">Sign up Here</RouterLink>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const login = () => {
+  localStorage.setItem('userId', 'ABC-123');
+  const lastPath = localStorage.getItem('lastPath') ?? '/';
+  // router.replace({ name: 'home' });
+  router.replace(lastPath);
+};
+</script>
 <style scoped></style>

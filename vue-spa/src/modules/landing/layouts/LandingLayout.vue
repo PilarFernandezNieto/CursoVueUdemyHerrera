@@ -15,6 +15,7 @@
           <RouterLink :to="{ name: 'contact' }"> Contact </RouterLink>
         </div>
         <div class="space-x-4">
+          <RouterLink :to="{ name: 'pokemon', params: { id: 1 } }"> Pokemon </RouterLink>
           <RouterLink :to="{ name: 'login' }"> Login </RouterLink>
         </div>
       </nav>
