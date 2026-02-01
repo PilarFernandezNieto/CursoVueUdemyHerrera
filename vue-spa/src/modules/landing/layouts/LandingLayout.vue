@@ -9,6 +9,7 @@
       </div>
       <nav class="flex flex-col ml-auto items-end h-10">
         <div class="space-x-4">
+          <!-- exact-active-class="underline font-semibold" -->
           <RouterLink :to="{ name: 'home' }"> Home </RouterLink>
           <RouterLink :to="{ name: 'features' }"> Features </RouterLink>
           <RouterLink :to="{ name: 'pricing' }"> Pricing </RouterLink>
@@ -24,7 +25,13 @@
 
     <!-- Main -->
     <main class="flex-1 flex items-center justify-center">
-      <RouterView />
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
+
+      <!-- <RouterView /> -->
     </main>
     <!-- Fin Main -->
 
