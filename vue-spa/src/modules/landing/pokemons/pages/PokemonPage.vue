@@ -9,15 +9,17 @@
       alt="Pokemon"
       class="w-50 h-50 mt-5"
     />
-    <router-link
+    <RouterLink
       :to="{ name: 'pokemon', params: { id: id + 1 } }"
-      class="bg-indigo-500 text-white p-2 rounded mt-5 text-center hover:bg-indigo-700"
-      >Siguiente</router-link
+      class="bg-indigo-500 text-white p-2 rounded mt-5 text-center hover:bg-indigo-700 transition-all duration-150 ease-in"
+      >Siguiente</RouterLink
     >
   </section>
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
 interface Props {
   id: number;
 }
