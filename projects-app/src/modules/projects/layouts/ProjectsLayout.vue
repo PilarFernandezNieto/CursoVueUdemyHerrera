@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import SideMenu from '@/modules/common/components/SideMenu.vue'
+import SideMenu from '@/modules/projects/components/SideMenu.vue'
 import TopMenu from '@/modules/common/components/TopMenu.vue'
 </script>
 

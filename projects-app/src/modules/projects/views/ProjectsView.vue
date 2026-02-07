@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto w-full flex items-center justify-center">
+  <div class="overflow-x-auto w-full">
     <table class="table">
       <!-- head -->
       <thead>
@@ -21,11 +21,14 @@
       </tbody>
     </table>
   </div>
-  <FabButton />
+  <FabButton @click="() => console.log('click')">
+    <AddCircle />
+  </FabButton>
 </template>
 
 <script setup lang="ts">
 import FabButton from '@/modules/common/components/FabButton.vue'
+import AddCircle from '@/modules/common/icons/AddCircle.vue';
 </script>
 
 <style scoped></style>
