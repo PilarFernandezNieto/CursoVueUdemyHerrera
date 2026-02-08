@@ -4,30 +4,16 @@ import { computed, ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { useLocalStorage } from '@vueuse/core';
 
-// const initialLoad = (): Project[] => {
-//   return [
-//     {
-//       id: uuidv4(),
-//       name: 'Project 1',
-//       tasks: [],
-//     },
-//     {
-//       id: uuidv4(),
-//       name: 'Project 2',
-//       tasks: [],
-//     },
-//   ];
-// };
+// REVISAR REPOSITORIO. DATOS INICIALES DE CARGA ANTES DE LA PERSISSTENCIA EN LOCALSTORAGE
 
 export const useProjectStore = defineStore('project', () => {
   // const projects = ref(useLocalStorage<Project[]>('projects', initialLoad()));
-  const projects = ref(useLocalStorage<Project[]>('projects'));
+  const projects = ref(useLocalStorage<Project[]>('projects', []));
   const projectList = computed(() => [...projects.value]);
+  const noProjects = computed(() => projects.value.length === 0);
 
   const addProject = (name: string) => {
     if (!name.length === 0) return;
-
-    console.log('Desde add proyect');
     projects.value.push({
       id: uuidv4(),
       name: name,
@@ -37,10 +23,11 @@ export const useProjectStore = defineStore('project', () => {
 
   return {
     // Properties
-    // projects,
+    projects,
 
     // Getters - Computed properties
     projectList,
+    noProjects,
 
     // Actions
     addProject,
