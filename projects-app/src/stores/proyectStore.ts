@@ -9,6 +9,7 @@ import { useLocalStorage } from '@vueuse/core';
 export const useProjectStore = defineStore('project', () => {
   // const projects = ref(useLocalStorage<Project[]>('projects', initialLoad()));
   const projects = ref(useLocalStorage<Project[]>('projects', []));
+
   const projectList = computed(() => [...projects.value]);
   const noProjects = computed(() => projects.value.length === 0);
 
@@ -21,6 +22,37 @@ export const useProjectStore = defineStore('project', () => {
     });
   };
 
+  const addTaskToProject = (projectId: string, taskName: string) => {
+    if (!taskName.trim().length === 0) return;
+
+    const project = projects.value.find((p) => p.id === projectId);
+    if (!project) return;
+    project.tasks.push({
+      id: uuidv4(),
+      name: taskName,
+    });
+  };
+
+  const toggleTask = (projectId: string, taskId: string) => {
+    const project = projects.value.find((p) => p.id === projectId);
+    if (!project) return;
+    const task = project.tasks.find((t) => t.id === taskId);
+    if (!task) return;
+    task.completedAt = task.completedAt ? undefined : new Date();
+  };
+
+  const projectProgress = computed(() => {
+    return (projectId: number) => {
+      const project = projects.value.find((p) => p.id === projectId);
+
+      if (!project || !project.tasks?.length) return 0;
+
+      const completed = project.tasks.filter((task) => task.completedAt).length;
+
+      return Math.round((completed / project.tasks.length) * 100);
+    };
+  });
+
   return {
     // Properties
     projects,
@@ -28,8 +60,11 @@ export const useProjectStore = defineStore('project', () => {
     // Getters - Computed properties
     projectList,
     noProjects,
+    projectProgress,
 
     // Actions
     addProject,
+    addTaskToProject,
+    toggleTask,
   };
 });
