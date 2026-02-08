@@ -53,6 +53,20 @@ export const useProjectStore = defineStore('project', () => {
     };
   });
 
+  const projectsWithCompletion = computed(() => {
+    return projects.value.map((project) => {
+      const total = project.tasks.length;
+      const completed = project.tasks.filter((t) => t.completedAt).length;
+      const completion = total === 0 ? 0 : (completed / total) * 100;
+      return {
+        id: project.id,
+        name: project.name,
+        taskCount: total,
+        completion: completion,
+      };
+    });
+  });
+
   return {
     // Properties
     projects,
@@ -61,6 +75,7 @@ export const useProjectStore = defineStore('project', () => {
     projectList,
     noProjects,
     projectProgress,
+    projectsWithCompletion,
 
     // Actions
     addProject,

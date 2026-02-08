@@ -13,17 +13,17 @@
       <tbody>
         <!-- row 1 -->
         <tr
-          v-for="(project, index) in projectStore.projectList"
+          v-for="(project, index) in projectStore.projectsWithCompletion"
           :key="project.id"
           class="hover:bg-base-300"
         >
           <th>{{ index + 1 }}</th>
           <td>{{ project.name }}</td>
-          <td>{{ project.tasks.length }}</td>
+          <td>{{ project.taskCount }}</td>
           <td>
             <progress
               class="progress progress-primary w-56"
-              :value="projectStore.projectProgress(project.id)"
+              :value="project.completion"
               max="100"
             ></progress>
           </td>
@@ -74,7 +74,7 @@ import FabButton from '@/modules/common/components/FabButton.vue';
 import InputModal from '@/modules/common/components/InputModal.vue';
 import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import AddSquare from '@/modules/common/icons/AddSquare.vue';
-import { useProjectStore } from '@/stores/proyectStore';
+import { useProjectStore } from '@/stores/projectStore';
 import { ref } from 'vue';
 
 const modalOpen = ref(false);

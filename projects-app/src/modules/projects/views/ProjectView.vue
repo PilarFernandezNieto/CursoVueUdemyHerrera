@@ -52,7 +52,7 @@ import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { Project } from '../interfaces/project.interface';
 import BreadCrumbs from '@/modules/common/components/BreadCrumbs.vue';
-import { useProjectStore } from '@/stores/proyectStore';
+import { useProjectStore } from '@/stores/projectStore';
 import { formatDate } from '@/modules/common/helpers';
 /**
  * Podemos coger el id con useRoute o desde el router en forma de props (ver /router/index.ts)
