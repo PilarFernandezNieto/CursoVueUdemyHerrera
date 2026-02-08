@@ -64,10 +64,13 @@ import FabButton from '@/modules/common/components/FabButton.vue';
 import InputModal from '@/modules/common/components/InputModal.vue';
 import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import AddSquare from '@/modules/common/icons/AddSquare.vue';
+import { useProjectStore } from '@/stores/proyectStore';
 import { ref } from 'vue';
 
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
+
+const projectsStore = useProjectStore();
 
 const onNewValue = (projectName: string) => {
   console.log({ projectName: projectName });
