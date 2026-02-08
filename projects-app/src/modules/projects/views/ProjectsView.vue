@@ -12,11 +12,15 @@
       </thead>
       <tbody>
         <!-- row 1 -->
-        <tr class="hover:bg-base-300">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
+        <tr
+          v-for="(project, index) in projectsStore.projectList"
+          :key="project.id"
+          class="hover:bg-base-300"
+        >
+          <th>{{ index + 1 }}</th>
+          <td>{{ project.name }}</td>
+          <td>{{ project.tasks.length }}</td>
+          <td><progress class="progress progress-primary w-56" value="10" max="100"></progress></td>
         </tr>
       </tbody>
     </table>
@@ -25,7 +29,7 @@
   <InputModal
     :open="modalOpen"
     @close="modalOpen = false"
-    @value="onNewValue"
+    @value="projectsStore.addProject"
     placeholder="Nombre del proyecto"
     titulo="Crea tu proyecto"
     subtitulo="Dale un nombre único a tu proyecto"
@@ -70,11 +74,10 @@ import { ref } from 'vue';
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
 
+// La desestructuración de los elementos del store hace que pierdan la reactividad
+// Para poder desestructurar debemos llamar antes a la función storeToRefs
+// La recomendación es no hacerlo si no es absolutamente necesario
 const projectsStore = useProjectStore();
-
-const onNewValue = (projectName: string) => {
-  console.log({ projectName: projectName });
-};
 </script>
 
 <style scoped></style>
