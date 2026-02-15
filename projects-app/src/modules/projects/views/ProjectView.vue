@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="task in project?.tasks" :key="task.id" class="hover:bg-base-300">
+            <tr v-for="task in project?.tasks" :key="task.id" class="hover">
               <th>
                 <input
                   type="checkbox"
