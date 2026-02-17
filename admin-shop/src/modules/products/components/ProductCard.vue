@@ -4,7 +4,7 @@
   >
     <a href="#">
       <div class="relative flex items-end overflow-hidden rounded-xl">
-        <img :src="product.images[0]" :alt="product.title" />
+        <img :src="product.images[0]" :alt="product.title" class="h-62 object-cover" />
       </div>
 
       <div class="mt-1 p-2">
@@ -49,5 +49,3 @@ interface Props {
 
 defineProps<Props>();
 </script>
-
-<style scoped></style>
