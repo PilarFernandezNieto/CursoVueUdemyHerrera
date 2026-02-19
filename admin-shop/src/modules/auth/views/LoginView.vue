@@ -6,6 +6,7 @@
       <label for="email" class="block text-gray-600">Correo</label>
       <input
         v-model="myForm.email"
+        ref="emailInputRef"
         type="text"
         id="email"
         name="email"
@@ -18,6 +19,7 @@
       <label for="password" class="block text-gray-600">Contraseña</label>
       <input
         v-model="myForm.password"
+        ref="passwordInputRef"
         type="password"
         id="password"
         name="password"
@@ -55,10 +57,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
 import { useAuthStore } from '../storres/auth.store';
+import { useToast } from 'vue-toastification';
 
 const authStore = useAuthStore();
+const toast = useToast();
+const emailInputRef = ref<HTMLInputElement>();
+const passwordInputRef = ref<HTMLInputElement>();
 
 const myForm = reactive({
   email: '',
@@ -67,7 +73,30 @@ const myForm = reactive({
 });
 
 const onLogin = async () => {
+  if (myForm.email == '') {
+    return emailInputRef.value?.focus();
+  }
+
+  if (myForm.password.length < 6) {
+    return passwordInputRef.value?.focus();
+  }
+  if (myForm.rememberMe) {
+    localStorage.setItem('email', myForm.email);
+  } else {
+    localStorage.removeItem('email');
+  }
   const ok = await authStore.login(myForm.email, myForm.password);
-  console.log(ok);
+
+  if (ok) return;
+
+  toast.error('Usuario /Contraseña no son correctos');
 };
+
+watchEffect(() => {
+  const email = localStorage.getItem('email');
+  if (email) {
+    myForm.email = email;
+    myForm.rememberMe = true;
+  }
+});
 </script>
