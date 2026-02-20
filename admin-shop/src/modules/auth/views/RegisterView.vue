@@ -1,13 +1,14 @@
 <template>
-  <h1 class="text-2xl font-semibold mb-4">Register</h1>
-  <form action="#" method="POST">
+  <h1 class="text-2xl font-semibold mb-4">Nueva Cuenta</h1>
+  <form @submit.prevent="onRegister" method="POST">
     <!-- Username Input -->
     <div class="mb-4">
-      <label for="name" class="block text-gray-600">Name</label>
+      <label for="fullName" class="block text-gray-600">Nombre</label>
       <input
+        v-model="myForm.fullName"
         type="text"
-        id="name"
-        name="name"
+        id="fullName"
+        name="fullName"
         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
         autocomplete="off"
       />
@@ -15,19 +16,21 @@
 
     <!-- Username Input -->
     <div class="mb-4">
-      <label for="username" class="block text-gray-600">Username</label>
+      <label for="email" class="block text-gray-600">Email</label>
       <input
-        type="text"
-        id="username"
-        name="username"
+        v-model="myForm.email"
+        type="email"
+        id="email"
+        name="email"
         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
         autocomplete="off"
       />
     </div>
     <!-- Password Input -->
     <div class="mb-4">
-      <label for="password" class="block text-gray-600">Password</label>
+      <label for="password" class="block text-gray-600">Contraseña</label>
       <input
+        v-model="myForm.password"
         type="password"
         id="password"
         name="password"
@@ -35,25 +38,38 @@
         autocomplete="off"
       />
     </div>
-    <!-- Remember Me Checkbox -->
-    <div class="mb-4 flex items-center">
-      <input type="checkbox" id="remember" name="remember" class="text-blue-500" />
-      <label for="remember" class="text-gray-600 ml-2">Remember Me</label>
-    </div>
+
     <!-- Forgot Password Link -->
     <div class="mb-6 text-blue-500">
-      <a href="#" class="hover:underline">Forgot Password?</a>
+      <a href="#" class="hover:underline">¿Has olvidado la contraseña?</a>
     </div>
     <!-- Login Button -->
     <button
       type="submit"
       class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
     >
-      Login
+      Registro
     </button>
   </form>
   <!-- Sign up  Link -->
   <div class="mt-6 text-blue-500 text-center">
-    <RouterLink :to="{ name: 'login' }" class="hover:underline">Login Here</RouterLink>
+    <RouterLink :to="{ name: 'login' }" class="hover:underline">Incia sesión</RouterLink>
   </div>
 </template>
+<script lang="ts" setup>
+import { reactive } from 'vue';
+import { useAuthStore } from '../storres/auth.store';
+
+const authStore = useAuthStore();
+
+const myForm = reactive({
+  fullName: '',
+  email: '',
+  password: '',
+});
+
+const onRegister = async () => {
+  const result = await authStore.register(myForm.fullName, myForm.email, myForm.password);
+  console.log(result);
+};
+</script>
