@@ -19,8 +19,7 @@ authStore.$subscribe(
       return;
     }
     if (route.path.includes('auth') && state.authStatus === AuthStatus.Authenticated) {
-      router.replace({ name: 'home' });
-      return;
+      return router.replace({ name: 'home' });
     }
   },
   {

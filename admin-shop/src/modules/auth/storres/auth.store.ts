@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (email: string, password: string) => {
     try {
       const loginResponse = await loginAction(email, password);
-      console.log('Login Response', loginResponse);
+
       if (!loginResponse.ok) {
         logout();
         return false;
