@@ -17,19 +17,21 @@ export const registerAction = async (
   password: string,
 ): Promise<RegisterError | RegisterSuccess> => {
   try {
-    console.log('en register action', { fullName, email, password });
     const { data } = await tesloApi.post<AuthResponse>('/auth/register', {
       fullName,
       email,
       password,
     });
-
     return {
       ok: true,
       user: data.user,
       token: data.token,
     };
   } catch (error) {
-    console.log('Desde Register Action', error.response.message);
+    console.log(error);
+    return {
+      ok: false,
+      message: 'Error en el registro',
+    };
   }
 };

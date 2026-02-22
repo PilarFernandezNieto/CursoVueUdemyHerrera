@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-2xl font-semibold mb-4">Nueva Cuenta</h1>
-  <form @submit.prevent="onRegister" method="POST">
+  <form @submit.prevent="onRegister">
     <!-- Username Input -->
     <div class="mb-4">
       <label for="fullName" class="block text-gray-600">Nombre</label>
@@ -46,7 +46,7 @@
     <div class="mb-6 text-blue-500">
       <a href="#" class="hover:underline">¿Has olvidado la contraseña?</a>
     </div>
-    <!-- Login Button -->
+    <!-- Register Button -->
     <button
       type="submit"
       class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
@@ -66,7 +66,6 @@ import { useToast } from 'vue-toastification';
 
 const authStore = useAuthStore();
 const toast = useToast();
-
 const fullNameInputRef = ref<HTMLInputElement>();
 const emailInputRef = ref<HTMLInputElement>();
 const passwordInputRef = ref<HTMLInputElement>();
@@ -84,12 +83,15 @@ const onRegister = async () => {
   if (myForm.email == '') {
     return emailInputRef.value?.focus();
   }
-  if (myForm.password == '') {
+
+  if (myForm.password.length < 6) {
     return passwordInputRef.value?.focus();
   }
-  console.log('en On Register');
-  const result = await authStore.register(myForm.fullName, myForm.email, myForm.password);
-  toast.success('Usuario creado correctamente');
-  console.log('Desde register view', result);
+
+  const { ok, message } = await authStore.register(myForm.fullName, myForm.email, myForm.password);
+
+  if (ok) return;
+
+  toast.error(message);
 };
 </script>

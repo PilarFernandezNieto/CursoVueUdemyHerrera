@@ -30,13 +30,26 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const registerResponse = await registerAction(fullName, email, password);
       if (!registerResponse.ok) {
-        return false;
+        logout();
+        return {
+          ok: false,
+          message: registerResponse.message,
+        };
       }
       user.value = registerResponse.user;
       token.value = registerResponse.token;
       authStatus.value = AuthStatus.Authenticated;
+
+      return {
+        ok: true,
+        message: '',
+      };
     } catch (error) {
       console.log(error);
+      return {
+        ok: false,
+        message: 'Error en el registro',
+      };
     }
   };
 
