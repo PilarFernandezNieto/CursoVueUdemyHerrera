@@ -35,11 +35,11 @@
         </RouterLink>
         <!-- Register Button -->
         <button
-          data-collapse-toggle="navbar-sticky"
+          @click="isMenuOpen = !isMenuOpen"
           type="button"
           class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
           aria-controls="navbar-sticky"
-          aria-expanded="false"
+          :aria-expanded="isMenuOpen"
         >
           <span class="sr-only">Open main menu</span>
           <svg
@@ -58,7 +58,10 @@
         </button>
       </div>
       <div
-        class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
+        :class="[
+          'w-full items-center justify-between md:order-1 md:flex md:w-auto',
+          { hidden: !isMenuOpen },
+        ]"
         id="navbar-sticky"
       >
         <ul
@@ -99,6 +102,10 @@
   </nav>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const isMenuOpen = ref(false);
+</script>
 
 <style scoped></style>
