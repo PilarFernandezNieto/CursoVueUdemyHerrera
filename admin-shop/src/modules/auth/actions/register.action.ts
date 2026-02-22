@@ -17,6 +17,7 @@ export const registerAction = async (
   password: string,
 ): Promise<RegisterError | RegisterSuccess> => {
   try {
+    console.log('en register action', { fullName, email, password });
     const { data } = await tesloApi.post<AuthResponse>('/auth/register', {
       fullName,
       email,
@@ -29,6 +30,6 @@ export const registerAction = async (
       token: data.token,
     };
   } catch (error) {
-    console.log('Desde REgister Action', error);
+    console.log('Desde Register Action', error.response.message);
   }
 };

@@ -29,7 +29,12 @@ export const useAuthStore = defineStore('auth', () => {
   const register = async (fullName: string, email: string, password: string) => {
     try {
       const registerResponse = await registerAction(fullName, email, password);
-      console.log(registerResponse);
+      if (!registerResponse.ok) {
+        return false;
+      }
+      user.value = registerResponse.user;
+      token.value = registerResponse.token;
+      authStatus.value = AuthStatus.Authenticated;
     } catch (error) {
       console.log(error);
     }

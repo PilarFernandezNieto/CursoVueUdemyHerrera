@@ -6,6 +6,7 @@
       <label for="fullName" class="block text-gray-600">Nombre</label>
       <input
         v-model="myForm.fullName"
+        ref="fullNameInputRef"
         type="text"
         id="fullName"
         name="fullName"
@@ -19,6 +20,7 @@
       <label for="email" class="block text-gray-600">Email</label>
       <input
         v-model="myForm.email"
+        ref="emailInputRef"
         type="email"
         id="email"
         name="email"
@@ -31,6 +33,7 @@
       <label for="password" class="block text-gray-600">Contraseña</label>
       <input
         v-model="myForm.password"
+        ref="passwordInputRef"
         type="password"
         id="password"
         name="password"
@@ -57,10 +60,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { useAuthStore } from '../storres/auth.store';
+import { useToast } from 'vue-toastification';
 
 const authStore = useAuthStore();
+const toast = useToast();
+
+const fullNameInputRef = ref<HTMLInputElement>();
+const emailInputRef = ref<HTMLInputElement>();
+const passwordInputRef = ref<HTMLInputElement>();
 
 const myForm = reactive({
   fullName: '',
@@ -69,7 +78,18 @@ const myForm = reactive({
 });
 
 const onRegister = async () => {
+  if (myForm.fullName == '') {
+    return fullNameInputRef.value?.focus();
+  }
+  if (myForm.email == '') {
+    return emailInputRef.value?.focus();
+  }
+  if (myForm.password == '') {
+    return passwordInputRef.value?.focus();
+  }
+  console.log('en On Register');
   const result = await authStore.register(myForm.fullName, myForm.email, myForm.password);
-  console.log(result);
+  toast.success('Usuario creado correctamente');
+  console.log('Desde register view', result);
 };
 </script>
