@@ -4,7 +4,7 @@
 </template>
 <script lang="ts" setup>
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
-import { useAuthStore } from './modules/auth/storres/auth.store';
+import { useAuthStore } from './modules/auth/stores/auth.store';
 import { AuthStatus } from './modules/auth/interfaces';
 import { useRoute, useRouter } from 'vue-router';
 

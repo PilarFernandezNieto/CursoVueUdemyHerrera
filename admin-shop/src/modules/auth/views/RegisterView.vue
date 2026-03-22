@@ -61,7 +61,7 @@
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { useAuthStore } from '../storres/auth.store';
+import { useAuthStore } from '../stores/auth.store';
 import { useToast } from 'vue-toastification';
 
 const authStore = useAuthStore();

@@ -20,20 +20,40 @@
         <span class="self-center whitespace-nowrap text-xl font-semibold">Termcode</span>
       </a>
       <div class="mt-2 sm:mt-0 sm:flex md:order-2">
-        <!-- Login Button -->
-        <RouterLink
-          :to="{ name: 'login' }"
-          class="rounde mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
-        >
-          Inicia sesión
-        </RouterLink>
-        <RouterLink
-          :to="{ name: 'register' }"
-          class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
-        >
-          Regístrate
-        </RouterLink>
-        <!-- Register Button -->
+        <template v-if="!authStore.isAuthenticated">
+          <!-- Login Button -->
+          <RouterLink
+            :to="{ name: 'login' }"
+            class="mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
+          >
+            Inicia sesión
+          </RouterLink>
+          <!-- Register Button -->
+          <RouterLink
+            :to="{ name: 'register' }"
+            class="mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
+          >
+            Regístrate
+          </RouterLink>
+        </template>
+        <template v-if="authStore.isAuthenticated">
+          <!-- Admin Button -->
+          <RouterLink
+            v-if="authStore.isAdmin"
+            :to="{ name: 'admin' }"
+            class="mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
+          >
+            Admin
+          </RouterLink>
+          <!-- Cierra sesión -->
+          <button
+            @click="authStore.logout()"
+            class="mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
+          >
+            Cerrar sesión
+          </button>
+        </template>
+
         <button
           @click="isMenuOpen = !isMenuOpen"
           type="button"
@@ -104,8 +124,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
+import { useAuthStore } from '@/modules/auth/stores/auth.store';
 const isMenuOpen = ref(false);
+
+const authStore = useAuthStore();
+console.log(authStore.isAdmin);
 </script>
 
 <style scoped></style>
