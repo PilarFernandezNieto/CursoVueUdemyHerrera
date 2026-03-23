@@ -1,5 +1,5 @@
 <template>
-  <!-- component -->
+  <!-- Admin Layout -->
   <div class="flex w-screen h-screen text-gray-700">
     <!-- Component Start -->
     <div class="flex flex-col items-center w-16 pb-4 overflow-auto border-r border-gray-300">
@@ -220,6 +220,7 @@
         </a>
       </div>
     </div>
+
     <div class="flex flex-col grow">
       <div class="flex items-center shrink-0 h-16 px-8 border-b border-gray-300">
         <h1 class="text-lg font-medium">Page Title</h1>
@@ -259,7 +260,9 @@
           </div>
         </button>
       </div>
-      <RouterView />
+      <div class="grow p-6 overflow-auto bg-gray-200">
+        <RouterView />
+      </div>
     </div>
     <!-- Component End  -->
   </div>

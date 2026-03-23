@@ -1,3 +1,4 @@
+<!-- DASHBOARD VIEW -->
 <template>
   <div class="grow p-6 overflow-auto bg-gray-200">
     <div class="grid grid-cols-3 gap-6">
