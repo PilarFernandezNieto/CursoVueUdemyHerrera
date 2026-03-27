@@ -10,8 +10,6 @@ const isAdminGuard = async (
 
   await authStore.checkAuthStatus();
 
-  console.log(authStore.isAdmin);
-
   if (authStore.isAdmin) {
     return next();
   }

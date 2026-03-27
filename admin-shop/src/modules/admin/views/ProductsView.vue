@@ -27,7 +27,7 @@
               </td>
               <td class="text-left py-3 px-4">
                 <RouterLink
-                  :to="`/admin/products/${product.id}`"
+                  :to="{ name: 'admin-product', params: { productId: product.id } }"
                   class="hover:text-blue-500 hover:underline"
                 >
                   {{ product.title }}
