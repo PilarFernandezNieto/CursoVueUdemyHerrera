@@ -7,7 +7,7 @@ export const getProductById = async (productId: string) => {
 
   try {
     const { data } = await tesloApi.get<Product>(`/products/${productId}`);
-    console.log({ data: data });
+
     return {
       ...data,
       images: data.images.map(getProductImageAction),

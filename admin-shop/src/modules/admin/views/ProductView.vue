@@ -1,39 +1,55 @@
 <template>
   <div class="bg-white px-5 py-2 rounded">
-    <h1 class="text-3xl">Producto: <small class="text-blue-500">nombre</small></h1>
+    <h1 class="text-3xl">
+      Producto: <small class="text-blue-500">{{ title }}</small>
+    </h1>
     <hr class="my-4" />
   </div>
 
-  <form class="grid grid-cols-1 sm:grid-cols-2 bg-white px-5 gap-5">
+  <form class="grid grid-cols-1 sm:grid-cols-2 bg-white px-5 gap-5" @submit.prevent="onSubmit">
     <div class="first-col">
       <!-- Primera parte del formulario -->
       <div class="mb-4">
         <label for="title" class="form-label">Título</label>
-        <input type="text" id="title" class="form-control" />
-      </div>
+        <CustomInput v-model="title" v-bind="titleAttrs" :error="errors.title" />
+        <!-- <input
+          v-model="title"
+          v-bind="titleAttrs"
+          type="text"
+          id="title"
+          :class="[
+            'form-control',
+            {
+              'border-red-500! border-2!': errors.title,
+            },
+          ]"
+        />
+        <span v-if="errors.title" class="text-red-600 text-xs uppercase">{{ errors.title }}</span>
+      --></div>
 
       <div class="mb-4">
         <label for="slug" class="form-label">Slug</label>
-        <input type="text" id="slug" class="form-control" />
+        <CustomInput v-model="slug" v-bind="slugAttrs" :error="errors.slug" />
       </div>
 
       <div class="mb-4">
         <label for="description" class="form-label">Descripción</label>
-        <textarea
-          id="description"
-          class="shadow h-32 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        ></textarea>
+        <CustomTextarea
+          v-model="description"
+          v-bind="descriptionAttrs"
+          :error="errors.description"
+        />
       </div>
 
       <div class="flex flex-row gap-3">
-        <div class="mb-4">
+        <div class="mb-4 flex-1">
           <label for="price" class="form-label">Precio</label>
-          <input type="number" id="price" class="form-control" />
+          <CustomInput v-model.number="price" v-bind="priceAttrs" :error="errors.price" />
         </div>
 
-        <div class="mb-4">
+        <div class="mb-4 flex-1">
           <label for="stock" class="form-label">Inventario</label>
-          <input type="number" id="stock" class="form-control" />
+          <CustomInput v-model.number="stock" v-bind="stockAttrs" :error="errors.stock" />
         </div>
       </div>
 
@@ -43,8 +59,15 @@
           <button
             v-for="size in allSizes"
             :key="size"
+            @click="toggleSize(size)"
             type="button"
-            class="bg-blue-100 p-2 rounded w-14 mr-2 flex-1"
+            :class="[
+              ' p-2 rounded w-14 mr-2 flex-1',
+              {
+                'bg-blue-500 text-white': hasSize(size),
+                'bg-blue-100': !hasSize(size),
+              },
+            ]"
           >
             {{ size }}
           </button>
@@ -57,12 +80,8 @@
       <label for="stock" class="form-label">Imágenes</label>
       <!-- Row with scrollable horizontal -->
       <div class="flex p-2 overflow-x-auto space-x-8 w-full h-66.5 bg-gray-200 rounded">
-        <div class="shrink-0">
-          <img src="https://placehold.co/250x250" alt="imagen" class="w-62.5 h-62.5" />
-        </div>
-
-        <div class="shrink-0">
-          <img src="https://placehold.co/250x250" alt="imagen" class="w-62.5 h-62.5" />
+        <div v-for="(image, index) in images" class="shrink-0" :key="`image${index}`">
+          <img :src="image.value" :alt="title" class="w-62.5 h-62.5" />
         </div>
       </div>
       <!-- Upload image -->
@@ -74,12 +93,18 @@
 
       <div class="mb-4">
         <label for="stock" class="form-label">Género</label>
-        <select class="form-control">
+
+        <select
+          :class="['form-control', { 'border-red-500!': errors.gender }]"
+          v-model="gender"
+          v-bind="genderAttrs"
+        >
           <option value="">Seleccione</option>
           <option value="kid">Niño</option>
           <option value="women">Mujer</option>
           <option value="men">Hombre</option>
         </select>
+        <span v-if="errors.gender" class="text-red-600 text-xs uppercase">{{ errors.gender }}</span>
       </div>
 
       <!-- Botón para guardar -->
@@ -93,6 +118,11 @@
       </div>
     </div>
   </form>
+  <div class="grid grid-cols-2 mt-2">
+    <pre class="bg-blue-200 p-2">{{ JSON.stringify(values, null, 2) }}</pre>
+    <pre class="bg-red-200 p-2">{{ JSON.stringify(errors, null, 2) }}</pre>
+    <pre class="bg-green-200 p-2 col-span-2">{{ JSON.stringify(meta, null, 2) }}</pre>
+  </div>
 </template>
 
 <script lang="ts" src="./ProductView.ts"></script>
@@ -104,6 +134,6 @@
 }
 
 .form-control {
-  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none;
+  @apply shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500;
 }
 </style>
